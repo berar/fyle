@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTextField;
 import net.java.balloontip.BalloonTip;
 import org.fyle.model.ClickListener;
 import org.fyle.model.KeyPressedListener;
@@ -25,13 +26,13 @@ public class LoginViewImpl extends JFrame implements LoginView {
 
     private JButton loginButton;
     private JButton regButton;
-    private TextField loginUsername;
-    private TextField loginPassword;
-    private TextField regPass, regRepPass;
-    private TextField regUsername, regEmail;
+    private TextFieldImpl loginUsername;
+    private PasswordFieldImpl loginPassword;
+    private PasswordFieldImpl regPass, regRepPass;
+    private TextFieldImpl regUsername, regEmail;
     private JLabel logUserLabel, logPassLabel, regPassLabel, regRepPassLabel, regUserLabel, regEmailLabel;
-    private TextField[] loginFields;
-    private TextField[] regFields;
+    private JTextField[] loginFields;
+    private JTextField[] regFields;
     private static BalloonTip errorTip;
     private ClickListener cl;
     private KeyPressedListener kl;
@@ -48,37 +49,38 @@ public class LoginViewImpl extends JFrame implements LoginView {
         loginButton = new JButton("Login");
         regButton = new JButton("Register");
         loginUsername = new TextFieldImpl(12);
-        getLoginUsername().setMaximumSize(getLoginUsername().getPreferredSize());
+        loginUsername.setMaximumSize(loginUsername.getPreferredSize());
+        loginButton.setMaximumSize(loginButton.getPreferredSize());
         loginPassword = new PasswordFieldImpl(12);
-        getLoginPassword().setMaximumSize(getLoginPassword().getPreferredSize());
+        loginPassword.setMaximumSize(loginPassword.getPreferredSize());
         regPass = new PasswordFieldImpl(12);
-        getRegPass().setMaximumSize(getRegPass().getPreferredSize());
+        regPass.setMaximumSize(regPass.getPreferredSize());
         regRepPass = new PasswordFieldImpl(12);
-        getRegRepPass().setMaximumSize(getRegRepPass().getPreferredSize());
+        regRepPass.setMaximumSize(regRepPass.getPreferredSize());
         regUsername = new TextFieldImpl(12);
-        getRegUsername().setMaximumSize(getRegUsername().getPreferredSize());
+        regUsername.setMaximumSize(regUsername.getPreferredSize());
         regEmail = new TextFieldImpl(12);
-        getRegEmail().setMaximumSize(getRegEmail().getPreferredSize());
+        regEmail.setMaximumSize(regEmail.getPreferredSize());
         logUserLabel = new JLabel("Username:");
         logPassLabel = new JLabel("Password:");
         regPassLabel = new JLabel("Password:");
         regRepPassLabel = new JLabel("Repeat password:");
         regEmailLabel = new JLabel("Email:");
         regUserLabel = new JLabel("Username:");
-        Dimension buttonDim = new Dimension(getLoginUsername().getHeight(), getLoginUsername().getWidth() - 60);
+        Dimension buttonDim = new Dimension(loginUsername.getHeight(), loginUsername.getWidth() - 60);
         loginButton.setSize(buttonDim);
-        loginFields = new TextField[]{getLoginUsername(), getLoginPassword()};
-        regFields = new TextField[]{getRegUsername(), getRegEmail(), getRegPass(), getRegRepPass()};
+        loginFields = new JTextField[]{loginUsername, loginPassword};
+        regFields = new JTextField[]{regUsername, regEmail, regPass, regRepPass};
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
         loginPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         logUserLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         loginPanel.add(logUserLabel);
-        getLoginUsername().setAlignmentX(Component.LEFT_ALIGNMENT);
+        loginUsername.setAlignmentX(Component.LEFT_ALIGNMENT);
         loginPanel.add((Component) getLoginUsername());
         logPassLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         loginPanel.add(logPassLabel);
-        getLoginPassword().setAlignmentX(Component.LEFT_ALIGNMENT);
+        loginPassword.setAlignmentX(Component.LEFT_ALIGNMENT);
         loginPanel.add((Component) getLoginPassword());
         loginPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         loginButton.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -89,19 +91,19 @@ public class LoginViewImpl extends JFrame implements LoginView {
         regPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         regUserLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         regPanel.add(regUserLabel);
-        getRegUsername().setAlignmentX(Component.LEFT_ALIGNMENT);
+        regUsername.setAlignmentX(Component.LEFT_ALIGNMENT);
         regPanel.add((Component) getRegUsername());
         regEmailLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         regPanel.add(regEmailLabel);
-        getRegEmail().setAlignmentX(Component.LEFT_ALIGNMENT);
+        regEmail.setAlignmentX(Component.LEFT_ALIGNMENT);
         regPanel.add((Component) getRegEmail());
         regPassLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         regPanel.add(regPassLabel);
-        getRegPass().setAlignmentX(Component.LEFT_ALIGNMENT);
+        regPass.setAlignmentX(Component.LEFT_ALIGNMENT);
         regPanel.add((Component) getRegPass());
         regRepPassLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         regPanel.add(regRepPassLabel);
-        getRegRepPass().setAlignmentX(Component.LEFT_ALIGNMENT);
+        regRepPass.setAlignmentX(Component.LEFT_ALIGNMENT);
         regPanel.add((Component) getRegRepPass());
         regPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         regButton.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -172,7 +174,7 @@ public class LoginViewImpl extends JFrame implements LoginView {
     @Override
     public void subscribeOnLoginKeyPressed(final KeyPressedListener kl) {
         this.kl = kl;
-        for (TextField loginField : loginFields) {
+        for (JTextField loginField : loginFields) {
             loginField.addKeyListener(new KeyListener() {
                 @Override
                 public void keyTyped(KeyEvent e) {
@@ -204,7 +206,7 @@ public class LoginViewImpl extends JFrame implements LoginView {
     @Override
     public void subscribeOnRegKeyPressed(final KeyPressedListener kl) {
         this.kl = kl;
-        for (TextField regField : regFields) {
+        for (JTextField regField : regFields) {
             regField.addKeyListener(new KeyListener() {
                 @Override
                 public void keyTyped(KeyEvent e) {

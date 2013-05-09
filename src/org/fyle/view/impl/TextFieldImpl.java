@@ -27,5 +27,4 @@ public class TextFieldImpl extends JTextField implements TextField {
         tip = new BalloonTip((JComponent)this, message);
         TimingUtils.showTimedBalloon(tip, 3000);
     }
-    
 }

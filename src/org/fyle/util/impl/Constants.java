@@ -11,6 +11,5 @@ public class Constants {
     public static final String RGX_DETECT_NAME_COMMAND_CORRECT = "(?i)^\\/name \\w+";
     public static final String RGX_DETECT_NAME_COMMAND_ANY = "^/name .*$"; 
     public static final Random RANDOM = new Random(System.nanoTime());
-    public enum ErrorType{LOGIN, REGISTER}
 
 }

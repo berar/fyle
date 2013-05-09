@@ -1,16 +1,16 @@
 
 package org.fyle.util;
 
+import org.fyle.data.ValidationResult;
+
 /**
  *
  * @author Korisnik
  */
 public interface ErrorChecker {
     
-    void setErrorMessage(String message);
-    String getErrorMessage();
-    boolean isUsernameCorrect(String username);
-    boolean isPasswordCorrect(String password);
-    boolean isEmailCorrect(String email);
+    ValidationResult isUsernameCorrect(String username);
+    ValidationResult isPasswordCorrect(String password);
+    ValidationResult isEmailCorrect(String email);
     
 }

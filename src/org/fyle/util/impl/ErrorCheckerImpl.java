@@ -1,5 +1,6 @@
 package org.fyle.util.impl;
 
+import org.fyle.data.ValidationResult;
 import org.fyle.localization.Localization;
 import org.fyle.util.ErrorChecker;
 
@@ -9,7 +10,6 @@ import org.fyle.util.ErrorChecker;
  */
 public class ErrorCheckerImpl implements ErrorChecker {
 
-    private String errorMessage;
     private Localization localization;
 
     public ErrorCheckerImpl(Localization localization) {
@@ -17,87 +17,56 @@ public class ErrorCheckerImpl implements ErrorChecker {
     }
 
     @Override
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    @Override
-    public void setErrorMessage(String message) {
-        this.errorMessage = message;
-    }
-
-    @Override
-    public boolean isUsernameCorrect(String username) {
+    public ValidationResult isUsernameCorrect(String username) {
         if (!checkMin(username, 4)) {
-            setErrorMessage(localization.getUsernameTooShort());
-            return false;
+            return new ValidationResult(false, localization.getUsernameTooShort());
         }
         if (!checkMax(username, 16)) {
-            setErrorMessage(localization.getUsernameTooLarge());
-            return false;
+            return new ValidationResult(false, localization.getUsernameTooLarge());
         }
         if (!checkFormat(username, Constants.RGX_VALID_USERNAME_FORMAT)) {
-            setErrorMessage(localization.getUsernameInvalidFormat());
-            return false;
+            return new ValidationResult(false, localization.getUsernameInvalidFormat());
         }
-        return true;
+        return new ValidationResult(true);
     }
 
     @Override
-    public boolean isPasswordCorrect(String password) {
+    public ValidationResult isPasswordCorrect(String password) {
         if (!checkMin(password, 8)) {
-            setErrorMessage(localization.getPasswordTooShort());
-            return false;
+            return new ValidationResult(false, localization.getPasswordTooShort());
         }
         if (!checkMax(password, 128)) {
-            setErrorMessage(localization.getPasswordTooLarge());
-            return false;
+            return new ValidationResult(false, localization.getPasswordTooLarge());
         }
         if (!checkFormat(password, Constants.RGX_VALID_PASSWORD_FORMAT)) {
-            setErrorMessage(localization.getPasswordInvalidFormat());
-            return false;
+            return new ValidationResult(false, localization.getPasswordInvalidFormat());
         }
-        return true;
+        return new ValidationResult(true);
     }
 
     @Override
-    public boolean isEmailCorrect(String email) {
+    public ValidationResult isEmailCorrect(String email) {
         if (!checkMin(email, 3)) {
-            setErrorMessage(localization.getEmailTooShort());
-            return false;
+            return new ValidationResult(false, localization.getEmailTooShort());
         }
         if (!checkMax(email, 254)) {
-            setErrorMessage(localization.getEmailTooLarge());
-            return false;
+            return new ValidationResult(false, localization.getEmailTooLarge());
         }
         if (!checkFormat(email, Constants.RGX_VALID_EMAIL_FORMAT)) {
-            setErrorMessage(localization.getEmailInvalidFormat());
-            return false;
+            return new ValidationResult(false, localization.getEmailInvalidFormat());
         }
-        return true;
+        return new ValidationResult(true);
     }
 
     private boolean checkFormat(String target, String pattern) {
-        if (target.matches(pattern)) {
-            return true;
-        } else {
-            return false;
-        }
+        return target.matches(pattern);
     }
 
     private boolean checkMin(String target, int min) {
-        if (target.length() >= min) {
-            return true;
-        } else {
-            return false;
-        }
+        return (target.length() >= min);
     }
 
     private boolean checkMax(String target, int max) {
-        if (target.length() <= max) {
-            return true;
-        } else {
-            return false;
-        }
+        return (target.length() <= max);
     }
 }
