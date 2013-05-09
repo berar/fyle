@@ -16,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import net.java.balloontip.BalloonTip;
-import org.fyle.model.ActionListeners;
 import org.fyle.model.ClickListener;
 import org.fyle.model.KeyPressedListener;
 import org.fyle.view.LoginView;
@@ -31,7 +30,6 @@ public class LoginViewImpl extends JFrame implements LoginView {
     private TextField regPass, regRepPass;
     private TextField regUsername, regEmail;
     private JLabel logUserLabel, logPassLabel, regPassLabel, regRepPassLabel, regUserLabel, regEmailLabel;
-    private ActionListeners al;
     private TextField[] loginFields;
     private TextField[] regFields;
     private static BalloonTip errorTip;
