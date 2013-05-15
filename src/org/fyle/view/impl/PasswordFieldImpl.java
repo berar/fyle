@@ -19,7 +19,6 @@ import org.fyle.view.TextField;
 public class PasswordFieldImpl extends JPasswordField implements TextField {
     
     private BalloonTip tip;
-    private KeyPressedListener kpl;
     
     public PasswordFieldImpl(int i) {
         super(i);
@@ -36,7 +35,6 @@ public class PasswordFieldImpl extends JPasswordField implements TextField {
     
     @Override
 	public void subscribeOnKeyPressed(final KeyPressedListener kpl) {
-		this.kpl = kpl;
         this.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {

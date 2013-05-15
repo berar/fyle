@@ -18,7 +18,6 @@ import org.fyle.view.Button;
  */
 public class ButtonImpl extends JButton implements Button {
 	
-	private ClickListener cl;
 	private BalloonTip tip;
 	
 	public ButtonImpl(String text){
@@ -27,14 +26,12 @@ public class ButtonImpl extends JButton implements Button {
 	
 	@Override
 	public void subscribeOnClick(final ClickListener cl) {
-		this.cl = cl;
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cl.actionPerformed();
             }
         });
-		
 	}
 	
 	@Override

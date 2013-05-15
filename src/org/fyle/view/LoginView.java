@@ -1,7 +1,7 @@
 
 package org.fyle.view;
 
-import javax.swing.JComponent;
+import org.fyle.model.WindowExitListener;
 
 /**
  *
@@ -9,9 +9,9 @@ import javax.swing.JComponent;
  */
 public interface LoginView {
     void show();
-    void displayError(JComponent jcomp, String errorMessage);
     void closeFrame();
     void enableAllForms(boolean enable);
+    void subscribeOnWindowExit(WindowExitListener wl);
     Label getStatusLabel();
     Button getLoginButton();
     Button getRegisterButton();

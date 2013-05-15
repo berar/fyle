@@ -53,7 +53,7 @@ public class Client {
 
 	}
 
-	public void close() {
+	public void disconnect() {
 		// Wait untill server closes the connection
 		channel.getCloseFuture().awaitUninterruptibly();
 		// Wait until all messages are flushed before closing the channel.

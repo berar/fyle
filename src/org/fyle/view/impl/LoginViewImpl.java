@@ -4,17 +4,16 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import net.java.balloontip.BalloonTip;
+import org.fyle.model.WindowExitListener;
 import org.fyle.view.Button;
 import org.fyle.view.LoginView;
 import org.fyle.view.Label;
@@ -33,7 +32,6 @@ public class LoginViewImpl extends JFrame implements LoginView {
     private PasswordFieldImpl regPass, regRepPass;
     private TextFieldImpl regUsername, regEmail;
     private JLabel logUserLabel, logPassLabel, regPassLabel, regRepPassLabel, regUserLabel, regEmailLabel;
-    private static BalloonTip errorTip;
     private JLabel statustxtLabel;
     private StatusLabelImpl statusLabel;
 
@@ -45,7 +43,7 @@ public class LoginViewImpl extends JFrame implements LoginView {
         setResizable(false);
         setTitle("Fyle - Login");
         setSize(600, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         loginButton = new ButtonImpl("Login");
         regButton = new ButtonImpl("Register");
         loginUsername = new TextFieldImpl(12);
@@ -137,14 +135,16 @@ public class LoginViewImpl extends JFrame implements LoginView {
         add(statusPanel);
         pack();
     }
-
+    
     @Override
-    public void displayError(JComponent jcomp, String errorMessage) {
-        if (errorTip != null) {
-            errorTip.closeBalloon();
-        }
-        errorTip = new BalloonTip(jcomp, errorMessage);
-    }
+	public void subscribeOnWindowExit(final WindowExitListener wl) {
+    	this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                wl.exit();
+            }
+        });
+	}
 
     @Override
     public TextField getLoginUsername() {
