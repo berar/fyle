@@ -1,13 +1,14 @@
 package org.fyle.util.impl;
 
+import java.util.regex.Pattern;
 import org.fyle.data.lr.LRResponse;
 import org.fyle.util.MessageReceivedParser;
 import org.fyle.util.mrhandler.MessageReceivedHandler;
 import org.fyle.util.mrhandler.impl.RegistrationErrorHandler;
 
 public class MessageReceivedParserImpl implements MessageReceivedParser {
-	private static final String RGX_MATCH_LRRESPONSE = "^(?i)<lrresponse([^>]+)>(.+?)</lrresponse>";
-
+	private static final Pattern RGX_PATTERN_LRRESPONSE = Pattern.compile("^(?i)<lrresponse([^>]+)>(.+?)</lrresponse>");
+	
 	private String message;
 	private String type;
 	
@@ -17,7 +18,7 @@ public class MessageReceivedParserImpl implements MessageReceivedParser {
 	}
 	
 	private void init(){
-		if(message.matches(RGX_MATCH_LRRESPONSE)){
+		if(RGX_PATTERN_LRRESPONSE.matcher(message).matches()){
 			this.type = "LR";
 			return;
 		}
